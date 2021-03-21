@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Edit
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Edit {{project.id}}</h1>
+        
+        {{form_start(form)}}
+            <div class="row">
+                <div class="col-md-4">
+                    {{form_row(form.code)}}
+                </div>
+                <div class="col-md-8">
+                    {{form_widget(form)}}
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-secondary">Valider</button>
+        {{form_end(form)}}
+    </div>
+{% endblock %}
