@@ -4,4 +4,24 @@
     <div class="container border">
         <h1>bienvenu sur la home page</h1>
     </div>
+    <div class="container">
+        <h2>Derniers Projets</h2>
+    </div>
+    {# <pre>
+        {{ dump(projects) }}
+    </pre> #}
+    <div class="container">
+        {% for projet in projects %}
+        <div class="col-3">
+            <div class="card border p-3">
+                <h5 class="card-title" >
+                    <a href="{{ path('Projects.show', {id: projet.id, slug: projet.slug }) }}">{{ projet.code }}</a>
+                </h5>
+                <p class="card-text">
+                    {{ projet.type }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    projet
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        
+        
+        <div class="row">
+            <div class="col-md-8 border">
+                <h1>page projet</h1>
+                <p>
+                {{ projet.description }}
+                </p>
+                <p>
+                {{ projet.description | nl2br }}
+                </p>
+            </div>
+            <div class="col-md-4 border">
+                <h2>
+                    {{projet.code}}
+                </h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
