@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Repository\ProjectsRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectsRepository::class)
+ * @UniqueEntity("code")
  */
 class Projects
 {
