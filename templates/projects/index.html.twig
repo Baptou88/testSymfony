@@ -5,7 +5,54 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container border">
+    
+    <div class="container border mb-2">
         <h1>bienvenu sur la page Projects</h1>
     </div>
+
+    <div class="container border mb-2">
+        {{form_start(form)}}
+        <div class="form-row row">
+            <div class="col">
+                {{form_row(form.type)}}
+
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" type="submit">Soumettre</button>
+            </div>
+
+        </div>
+        
+        
+        {{form_end(form)}}
+    </div>
+    <div class="container mt-2">
+
+    
+    <table class="table table-hover table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Code</th>
+            <th>Date Entree</th>
+            <th>Delai</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+
+    
+    {% for project in projects %}
+        {% include "projects/_projects.html.twig" %}
+    
+    {% endfor %}
+    
+</table>
+
+<div class="container">
+    <h4>Pagination <span class="count">{{ projects.getTotalItemCount }}</span></h4>
+    <div class="navigation">
+        {{ knp_pagination_render(projects) }}
+    </div>
+</div>
+
+</div>
 {% endblock %}

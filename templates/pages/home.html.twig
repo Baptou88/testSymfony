@@ -10,10 +10,11 @@
     {# <pre>
         {{ dump(projects) }}
     </pre> #}
-    <div class="container">
-        {% for projet in projects %}
-        <div class="col-3">
-            <div class="card border p-3">
+    <div class="container ">
+        <div class="row">
+            {% for projet in projects %}
+        <div class="col">
+            <div class="card border p-3" >
                 <h5 class="card-title" >
                     <a href="{{ path('Projects.show', {id: projet.id, slug: projet.slug }) }}">{{ projet.code }}</a>
                 </h5>
@@ -23,5 +24,8 @@
             </div>
         </div>
         {% endfor %}
+
+        </div>
+        
     </div>
 {% endblock %}

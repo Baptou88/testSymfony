@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Projects;
+use App\Entity\ProjectSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 
@@ -28,8 +30,24 @@ class ProjectsRepository extends ServiceEntityRepository
     {
        return $this->createQueryBuilder('p')
         //->where('p.type=1')
+        ->setMaxResults(2)
         ->getQuery()
         ->getResult(); 
+    }
+    /**
+     * fins All projects visible
+     *
+     * @return Query
+     */
+    public function findAllVisible(ProjectSearch $search): Query
+    {
+        $query = $this->createQueryBuilder('p');
+        if ($search->gettype()) {
+            $query
+                ->andWhere('p.Type = :type')
+                ->setParameter('type' , $search->gettype());
+        }
+        return $query->getQuery();
     }
     // /**
     //  * @return Projects[] Returns an array of Projects objects

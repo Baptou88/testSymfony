@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Projects;
+use App\Entity\ProjectSearch;
+use App\Form\ProjectSearchType;
 use App\Repository\ProjectsRepository;
-use DateTime;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,17 +26,17 @@ class ProjectController  extends AbstractController
      */
     
 
-    public function __construct(ProjectsRepository $repository)
+    public function __construct(ProjectsRepository $repository, EntityManagerInterface $em)
     {
         $this->repository = $repository;
-        // $this->em = $em;
+         $this->em = $em;
     }
     /**
      * index
      * @Route("/Projects" , name="Projects.index" ) 
      * @return Response
      */
-    public function index():Response
+    public function index(PaginatorInterface $paginator, Request $request):Response
     {
         // $Projet = new Projects;
         // $Projet->setCode("121/A")
@@ -43,12 +46,22 @@ class ProjectController  extends AbstractController
         // $em = $this->getDoctrine()->getManager();
         // $em->persist($Projet);
         // $em->flush();
-        $repository = $this->getDoctrine()->getRepository(Projects::class);
-        $Projet = $this->repository->find(1);
+        //$repository = $this->getDoctrine()->getRepository(Projects::class);
+        $search = new ProjectSearch();
+        $form = $this->createForm(ProjectSearchType::class, $search);
+        $form->handleRequest($request);
+        $query = $this->repository->findAllVisible($search);
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
         //dump($Projet);
         //dump($repository);
         return $this->render('projects/index.html.twig', [
-            'current_menu' => 'projects'
+            'current_menu' => 'projects',
+            'projects' => $pagination,
+            'form' => $form->createView()
         ]);
     }
 

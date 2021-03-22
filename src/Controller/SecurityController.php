@@ -21,7 +21,8 @@ class SecurityController extends AbstractController
         dump($error);
         return $this->render('security/login.html.twig',[
             'last_username' => $lastUsername,
-            'error' => $error
+            'error' => $error,
+            'current_menu' => 'login'
         ]);
     }
 }
