@@ -2,11 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Option;
 use App\Entity\ProjectSearch;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,6 +23,13 @@ class ProjectSearchType extends AbstractType
                     'placeholder' => 'type'
                 ]
             ])
+            ->add('options', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Option::class,
+                'choice_label' => 'name',
+                'multiple' => true
+            ])
             
         ;
     }
@@ -35,7 +43,7 @@ class ProjectSearchType extends AbstractType
             'translation_domain' => 'forms'
         ]);
     }
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return '';
     }

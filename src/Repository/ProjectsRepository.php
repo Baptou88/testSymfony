@@ -7,6 +7,7 @@ use App\Entity\ProjectSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Project;
 
 
 /**
@@ -26,7 +27,7 @@ class ProjectsRepository extends ServiceEntityRepository
      *
      * @return Project[]
      */
-    public function findLatest()
+    public function findLatest(): array
     {
        return $this->createQueryBuilder('p')
         //->where('p.type=1')
@@ -34,18 +35,28 @@ class ProjectsRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult(); 
     }
+
     /**
      * fins All projects visible
      *
+     * @param ProjectSearch $search
      * @return Query
      */
     public function findAllVisible(ProjectSearch $search): Query
     {
         $query = $this->createQueryBuilder('p');
         if ($search->gettype()) {
-            $query
+            $query = $query
                 ->andWhere('p.Type = :type')
                 ->setParameter('type' , $search->gettype());
+        }
+        if ($search->getOptions()->count() > 0 ) {
+                foreach ($search->getOptions() as $key => $option)
+                {
+                    $query = $query
+                        ->andWhere(":option$key MEMBER OF p.options")
+                        ->setParameter("option$key",$option);
+                }
         }
         return $query->getQuery();
     }

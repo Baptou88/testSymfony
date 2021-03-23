@@ -2,29 +2,26 @@
 
 namespace App\Controller;
 
-use App\Entity\Projects;
+
 use App\Entity\ProjectSearch;
 use App\Form\ProjectSearchType;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProjectsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @method index
- */
+
+
 class ProjectController  extends AbstractController
 {
-    private $repository;
+
     private $em;
-    /**
-     *
-     * @var PropertyRository
-     */
-    
+
+
+    private $repository;
 
     public function __construct(ProjectsRepository $repository, EntityManagerInterface $em)
     {
@@ -35,6 +32,7 @@ class ProjectController  extends AbstractController
      * index
      * @Route("/Projects" , name="Projects.index" ) 
      * @return Response
+     *
      */
     public function index(PaginatorInterface $paginator, Request $request):Response
     {

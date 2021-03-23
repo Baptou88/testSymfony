@@ -42,8 +42,16 @@
     
     {% for project in projects %}
         {% include "projects/_projects.html.twig" %}
-    
+
+    {% else %}
+            <tr>
+                <td colspan="6">Aucun record</td>
+            </tr>
+
     {% endfor %}
+
+
+
     
 </table>
 
@@ -55,4 +63,14 @@
 </div>
 
 </div>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $('select').select2();
+    </script>
 {% endblock %}

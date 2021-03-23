@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ProjectSearch  
@@ -13,14 +14,22 @@ class ProjectSearch
      */
     private $type;
 
+    /**
+     * @var ArrayCollection
+     */
 
+    private $options ;
 
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+    }
     /**
      * Get the value of type
      *@Assert\GreaterThan(0)
      * @return  int|null
      */ 
-    public function getType()
+    public function getType(): ?int
     {
         return $this->type;
     }
@@ -38,4 +47,21 @@ class ProjectSearch
 
         return $this;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOptions(): ArrayCollection
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param ArrayCollection $options
+     */
+    public function setOptions(ArrayCollection $options): void
+    {
+        $this->options = $options;
+    }
+
 }
