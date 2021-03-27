@@ -63,6 +63,7 @@ class AdminProjectController  extends AbstractController
      */
     public function edit(Projects $project, Request $request): Response
     {
+        dump($project->getClients());
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

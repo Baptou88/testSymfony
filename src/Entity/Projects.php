@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProjectsRepository;
 use Cocur\Slugify\Slugify;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -53,6 +54,20 @@ class Projects
      */
     private $options;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeProjet::class, inversedBy="projects")
+     *
+     */
+    private $TypeProjet;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="projects")
+     *  @ORM\JoinColumn(name="clients_id", referencedColumnName="id")
+     */
+    private $clients;
+
+
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
@@ -80,24 +95,24 @@ class Projects
 
     }
 
-    public function getDateEntree(): ?\DateTimeInterface
+    public function getDateEntree(): ?DateTimeInterface
     {
         return $this->DateEntree;
     }
 
-    public function setDateEntree(\DateTimeInterface $DateEntree): self
+    public function setDateEntree(DateTimeInterface $DateEntree): self
     {
         $this->DateEntree = $DateEntree;
 
         return $this;
     }
 
-    public function getDateDelai(): ?\DateTimeInterface
+    public function getDateDelai(): ?DateTimeInterface
     {
         return $this->DateDelai;
     }
 
-    public function setDateDelai(?\DateTimeInterface $DateDelai): self
+    public function setDateDelai(?DateTimeInterface $DateDelai): self
     {
         $this->DateDelai = $DateDelai;
 
@@ -154,4 +169,39 @@ class Projects
 
         return $this;
     }
+
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getStartDate(): ?DateTimeInterface {
+        return $this->getDateEntree();
+    }
+
+    public function getTypeProjet(): ?TypeProjet
+    {
+        return $this->TypeProjet;
+    }
+
+    public function setTypeProjet(?TypeProjet $TypeProjet): self
+    {
+        $this->TypeProjet = $TypeProjet;
+
+        return $this;
+    }
+
+
+
+    public function getClients(): ?Clients
+    {
+        return $this->clients;
+    }
+
+    public function setClients(?Clients $clients): self
+    {
+        $this->clients = $clients;
+
+        return $this;
+    }
+
 }

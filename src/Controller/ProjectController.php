@@ -72,7 +72,7 @@ class ProjectController  extends AbstractController
     {
         
         $projet = $this->repository->find($id);
-        
+        dump($this->repository->findOneByIdJoinedClient($id));
         if ($projet->getSlug() !== $slug) {
             
             return $this->redirectToRoute('Projects.show',[

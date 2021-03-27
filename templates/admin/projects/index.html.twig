@@ -20,29 +20,22 @@
             <thead>
                 <th class="">Actions</th>
                 <th>Code</th>
+                <th>Client</th>
             </thead>
         
         {% for projet in projects %}
-        {# <div class="col-3 p-1">
-            <div class="card border p-3">
-                <h5 class="card-title" >
-                    <a href="{{ path('admin.Projects.edit', {id: projet.id}) }}">{{ projet.code }}</a>
-                </h5>
-                <p class="card-text">
-                    Type: {{ projet.type }}
-                </p>
-            </div>
-        </div> #}
+
             <tr>
                 <td><a class="btn btn-primary" href="{{ path('admin.Projects.edit', {id: projet.id}) }}">Afficher</a>
                 
-                <form method="POST" action="{{ path('admin.Projects.edit', {id: projet.id}) }}" style="display: inline-block;" onsubmit="return confirm('Etes  vous vraimen sur')">
-                    <input type="hidden" name="_method", value="DELETE">
-                    <input type="hidden" name="_token" , value="{{ csrf_token('delete' ~ projet.id) }}">
-                    <button class="btn btn-danger">Supprimer</button>
-                </form>
-            </td>
+                    <form method="POST" action="{{ path('admin.Projects.edit', {id: projet.id}) }}" style="display: inline-block;" onsubmit="return confirm('Etes  vous vraimen sur')">
+                        <input type="hidden" name="_method", value="DELETE">
+                        <input type="hidden" name="_token" , value="{{ csrf_token('delete' ~ projet.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
                 <td>{{ projet.code }}</td>
+                <td>{{ projet.clients.id ?? "null"}}</td>
             </tr>
             
         {% endfor %}

@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GanttController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    <style>
+        .chart-wrapper {
+            max-width: 1150px;
+            padding: 0 10px;
+            margin: 0 auto;
+        }
+        :root {
+            --divider: lightgrey;
+        }
+
+        .chart-wrapper .chart-values {
+            position: relative;
+            display: flex;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .chart-wrapper .chart-values li {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .chart-wrapper .chart-values li:not(:last-child) {
+            position: relative;
+        }
+
+        .chart-wrapper .chart-values li:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            height: 510px;
+            border-right: 1px solid var(--divider);
+        }
+        :root {
+            --white: #fff;
+        }
+
+        .chart-wrapper .chart-bars li {
+            position: relative;
+            color: var(--white);
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-radius: 20px;
+            padding: 10px 20px;
+            width: 0;
+            opacity: 0;
+            transition: all 0.65s linear 0.2s;
+        }
+
+        @media screen and (max-width: 600px) {
+            .chart-wrapper .chart-bars li {
+                padding: 10px;
+            }
+        }
+    </style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/MAMP/htdocs/testSymfony/src/Controller/GanttController.php'|file_link(0) }}">src/Controller/GanttController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/MAMP/htdocs/testSymfony/templates/gantt/index.html.twig'|file_link(0) }}">templates/gantt/index.html.twig</a></code></li>
+    </ul>
+
+    {{ rows  }} lignes
+    <table class="table">
+        {% for row in 1..rows %}
+            <tr>
+                {% for col in 0..cols-1%}
+                    <td>{{ col }},{{ row }}</td>
+                {% endfor %}
+
+            </tr>
+        {% endfor %}
+
+    </table>
+    {{ dump(gantt) }}
+    <div class="chart-wrapper">
+        <ul class="chart-values">
+            <li>sun</li>
+            <li>mon</li>
+            <li>tue</li>
+            <li>wed</li>
+            <li>thu</li>
+            <li>fri</li>
+            <li>sat</li>
+        </ul>
+        <ul class="chart-bars">
+            <li data-duration="tue-wed" data-color="#b03532">Task</li>
+            <li data-duration="wed-sat" data-color="#33a8a5">Task</li>
+            ...
+        </ul>
+    </div>
+
+
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener("load", createChart);
+        window.addEventListener("resize", createChart);
+
+        function createChart(e) {
+            // 1
+            const days = document.querySelectorAll(".chart-values li");
+            const tasks = document.querySelectorAll(".chart-bars li");
+            // 2
+            const daysArray = [...days];
+            // 3
+            tasks.forEach(el => {
+                // 1
+                const duration = el.dataset.duration.split("-");
+                // 2
+                const startDay = duration[0];
+                const endDay = duration[1];
+                let left = 0,
+                    width = 0;
+
+                // 3
+                if (startDay.endsWith("½")) {
+                    const filteredArray = daysArray.filter(day => day.textContent == startDay.slice(0, -1));
+                    left = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2;
+                } else {
+                    const filteredArray = daysArray.filter(day => day.textContent == startDay);
+                    left = filteredArray[0].offsetLeft;
+                }
+
+                // 4
+                if (endDay.endsWith("½")) {
+                    const filteredArray = daysArray.filter(day => day.textContent == endDay.slice(0, -1));
+                    width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth / 2 - left;
+                } else {
+                    const filteredArray = daysArray.filter(day => day.textContent == endDay);
+                    width = filteredArray[0].offsetLeft + filteredArray[0].offsetWidth - left;
+                }
+                // 1
+                el.style.left = `${left}px`;
+                el.style.width = `${width}px`;
+                // 4
+                if (e.type == "load") {
+                    // 2
+                    el.style.backgroundColor = el.dataset.color;
+                    // 3
+                    el.style.opacity = 1;
+                }
+            });
+        }
+    </script>
+
+{% endblock %}
