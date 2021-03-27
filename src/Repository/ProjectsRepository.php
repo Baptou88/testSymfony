@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Clients;
 use App\Entity\Projects;
 use App\Entity\ProjectSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -45,6 +46,8 @@ class ProjectsRepository extends ServiceEntityRepository
     public function findAllVisible(ProjectSearch $search): Query
     {
         $query = $this->createQueryBuilder('p');
+        $query = $query
+            ->innerJoin(Clients::class,"c");
         if ($search->gettype()) {
             $query = $query
                 ->andWhere('p.Type = :type')
@@ -58,6 +61,7 @@ class ProjectsRepository extends ServiceEntityRepository
                         ->setParameter("option$key",$option);
                 }
         }
+        dump($query->getQuery());
         return $query->getQuery();
     }
     // /**
@@ -88,4 +92,25 @@ class ProjectsRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneByIdJoinedClient($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin(Clients::class,"c")
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+    public function findAllByClient(int $idClient){
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.clients = :val')
+            ->setParameter('val', $idClient)
+            ->getQuery()
+            //->getOneOrNullResult()
+            ->getResult()
+            //->getArrayResult()
+
+            ;
+    }
 }

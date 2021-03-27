@@ -49,6 +49,7 @@ class ProjectController  extends AbstractController
         $form = $this->createForm(ProjectSearchType::class, $search);
         $form->handleRequest($request);
         $query = $this->repository->findAllVisible($search);
+
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
@@ -72,7 +73,7 @@ class ProjectController  extends AbstractController
     {
         
         $projet = $this->repository->find($id);
-        
+        dump($this->repository->findOneByIdJoinedClient($id));
         if ($projet->getSlug() !== $slug) {
             
             return $this->redirectToRoute('Projects.show',[

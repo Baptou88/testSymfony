@@ -7,7 +7,9 @@
 
     <div class="container">
         
-        
+        <div class="row">
+            <a href="{{ path('admin.Projects.edit' , {'id':projet.id}) }}">edit</a>
+        </div>
         <div class="row">
             <div class="col-md-8 border">
                 <h1>page projet</h1>
@@ -21,6 +23,7 @@
             <div class="col-md-4 border">
                 <h2>
                     {{projet.code}}
+                    {{ projet.clients.name }}
                 </h2>
             </div>
         </div>

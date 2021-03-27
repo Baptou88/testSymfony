@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestsController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/MAMP/htdocs/testSymfony/src/Controller/TestsController.php'|file_link(0) }}">src/Controller/TestsController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/MAMP/htdocs/testSymfony/templates/tests/index.html.twig'|file_link(0) }}">templates/tests/index.html.twig</a></code></li>
+    </ul>
+</div>
+    
+    <div class="container">
+        <table class="tableau">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+                
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
+        
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="application/javascript">
+
+        console.log("chargé")
+    </script>
+{% endblock %}
