@@ -1,2 +1,3 @@
 # testSymfony
 
+test
