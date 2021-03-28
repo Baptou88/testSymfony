@@ -3,7 +3,7 @@
     <td>{{project.code}}</td>
     <td>{{project.dateentree|date("m/d/Y")}}</td>
     <td>{{project.dateDelai|date("m/d/Y")}}</td>
-    <td>{{project.type}}</td>
+    <td>{{project.getTypeprojet.name ?? "null"}}</td>
     <td>{{project.description | nl2br}}</td>
 
 </tr>

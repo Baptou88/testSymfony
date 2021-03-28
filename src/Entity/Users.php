@@ -3,29 +3,37 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
-class Users implements UserInterface,\Serializable
+class Users implements Serializable,UserInterface
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
+    private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private ?string $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $role;
+
+
 
     public function getId(): ?int
     {
@@ -128,5 +136,17 @@ class Users implements UserInterface,\Serializable
             $this->username,
             $this->password
             ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+
+        return $this;
     }
 }

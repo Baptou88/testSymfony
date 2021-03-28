@@ -67,13 +67,14 @@ class ClientsController extends AbstractController
     public function show(Clients $client,ProjectsRepository $projectsRepository): Response
     {
 
-        $projects = $client->getProjects();
+        $projects = $client->getProjects()->getValues();
+        dump($client->getProjects()->first()->getTypeProjet()->getname());
         $projects2 = $projectsRepository->findAllByClient($client->getId());
 
-        dump($projects, $projects2);
         return $this->render('clients/show.html.twig', [
             'client' => $client,
-            'projects' => $projects2
+            'projects' => $projects2,
+            'getprojects' => $projects
         ]);
     }
 

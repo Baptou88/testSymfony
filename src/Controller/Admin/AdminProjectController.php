@@ -6,7 +6,6 @@ use App\Entity\Projects;
 use App\Form\ProjectType;
 use App\Repository\ProjectsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -23,7 +23,9 @@
             <div class="col-md-4 border">
                 <h2>
                     {{projet.code}}
-                    {{ projet.clients.name }}
+                    {{ dump(projet.clients) }}
+                    {{ dump(projet.clients.name ?? "null") }}
+                    {{ dump(projet.clients) }}
                 </h2>
             </div>
         </div>

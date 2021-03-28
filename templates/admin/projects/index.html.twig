@@ -16,12 +16,14 @@
 <div class="container">
 <h1>Liste des Projets</h1></div>
     <div class="container">
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead>
-                <th class="">Actions</th>
+            <tr>
+                <th> class="">Actions</th>
                 <th>Code</th>
                 <th>Client</th>
-            </thead>
+            <th>type</th>
+            </tr></thead>
         
         {% for projet in projects %}
 
@@ -29,13 +31,14 @@
                 <td><a class="btn btn-primary" href="{{ path('admin.Projects.edit', {id: projet.id}) }}">Afficher</a>
                 
                     <form method="POST" action="{{ path('admin.Projects.edit', {id: projet.id}) }}" style="display: inline-block;" onsubmit="return confirm('Etes  vous vraimen sur')">
-                        <input type="hidden" name="_method", value="DELETE">
-                        <input type="hidden" name="_token" , value="{{ csrf_token('delete' ~ projet.id) }}">
+                        <input type="hidden" name="_method"  value="DELETE">
+                        <input type="hidden" name="_token"  value="{{ csrf_token('delete' ~ projet.id) }}">
                         <button class="btn btn-danger">Supprimer</button>
                     </form>
                 </td>
                 <td>{{ projet.code }}</td>
-                <td>{{ projet.clients.id ?? "null"}}</td>
+                <td>{{ projet.clients.name ?? "null"}}</td>
+                <td>{{ projet.getTypeprojet.name ?? "null"}}</td>
             </tr>
             
         {% endfor %}

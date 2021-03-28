@@ -28,21 +28,42 @@
 
         <table class="table border">
             <thead>
+            <tr>
             <td>Action</td>
             <td>Code</td>
             <td>Type</td>
+            </tr>
             </thead>
             {% for project in projects %}
                 <tr>
                     <td><a href="{{ path('Projects.show',{id: project.id,slug: project.getslug}) }}" class="btn btn-primary btn-sm">{{ project.id }}</a></td>
                     <td >{{ project.code }}</td>
-                 <td>{{ project.type }}</td>
+                 <td>{{ project.type}}</td>
                 </tr>
                 {% else %}
                 <tr><td colspan="2">No Project</td></tr>
             {% endfor %}
         </table>
+        <h2>Projetcs via $clients->getProjects</h2>
+        <table class="table border">
+            <thead>
+            <tr>
+            <td>Action</td>
+            <td>Code</td>
+            <td>Type</td>
+            </tr>
+            </thead>
+            {% for project in getprojects %}
 
+                <tr>
+                    <td><a href="{{ path('Projects.show',{id: project.id,slug: project.getslug}) }}" class="btn btn-primary btn-sm">{{ project.id }}</a></td>
+                    <td >{{ project.code }}</td>
+                    <td>{{ project.getTypeprojet.name ?? "null" }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="2">No Project</td></tr>
+            {% endfor %}
+        </table>
     </div>
 
 {% endblock %}

@@ -9,7 +9,6 @@ use App\Entity\TypeProjet;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,21 +21,26 @@ class ProjectType extends AbstractType
             ->add('DateEntree',DateTimeType::class,[
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
-                'days' => range(1,15)
+                'days' => range(1,31),
+                'years' => range(1970,2100),
             ])
-            ->add('DateDelai')
+            ->add('DateDelai',DateTimeType::class,[
+                'years' => range(1970,2100),
+            ])
             ->add('Type')
             ->add('description')
             ->add('options' , EntityType:: class, [
                 'class' => Option::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'required' => false
+                'required' => false,
+
             ])
 
             ->add("TypeProjet", EntityType::class, [
                 'choice_label' => 'name',
-                'class' => TypeProjet::class
+                'class' => TypeProjet::class,
+                'required' => false
             ])
             ->add("Clients", EntityType::class, [
                 'choice_label' => 'name',
