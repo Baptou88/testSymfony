@@ -28,4 +28,16 @@
         </div>
         
     </div>
+    <div class="container">
+        <h2>User:</h2>
+        {% if app.user %}
+            {{ dump(app.user) }}
+
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="...">Delete</a>
+        {% else %}
+            <p>pas d'access admin</p>
+        {% endif %}
+    </div>
 {% endblock %}
