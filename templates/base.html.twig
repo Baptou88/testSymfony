@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -49,7 +49,7 @@
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link {% if current_menu is defined and current_menu == 'login' %}active{%endif %} " href="{{path('login')}}"  >login</a>
+          <a class="nav-link {% if current_menu is defined and current_menu == 'login' %}active{%endif %} " href="{{path('app_login')}}"  >login</a>
         </li>
         {% endif %}
       </ul>
