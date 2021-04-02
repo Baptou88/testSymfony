@@ -1,6 +1,10 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+    {{ dump(app.flashes) }}
+    {% for flash in app.flashes %}
+        <div class="alert">{{ dump(flash) }}</div>
+    {% endfor %}
     <div class="container border">
         <h1>bienvenu sur la home page</h1>
     </div>

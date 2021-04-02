@@ -24,27 +24,13 @@
 
         <a href="{{ path('clients_edit', {'id': client.id}) }}" class="btn btn-secondary">edit</a>
 
-        {{ include('clients/_delete_form.html.twig') }}
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('clients/_delete_form.html.twig') }}
+        {% endif %}
 
-        <table class="table border">
-            <thead>
-            <tr>
-            <td>Action</td>
-            <td>Code</td>
-            <td>Type</td>
-            </tr>
-            </thead>
-            {% for project in projects %}
-                <tr>
-                    <td><a href="{{ path('Projects.show',{id: project.id,slug: project.getslug}) }}" class="btn btn-primary btn-sm">{{ project.id }}</a></td>
-                    <td >{{ project.code }}</td>
-                 <td>{{ project.type}}</td>
-                </tr>
-                {% else %}
-                <tr><td colspan="2">No Project</td></tr>
-            {% endfor %}
-        </table>
-        <h2>Projetcs via $clients->getProjects</h2>
+
+
+        <h3>listing projects</h3>
         <table class="table border">
             <thead>
             <tr>

@@ -14,6 +14,8 @@ class UsersType extends AbstractType
         $builder
             ->add('username')
             ->add('password')
+            ->add('email')
+            ->add('isVerified')
         ;
     }
 

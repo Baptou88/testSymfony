@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class Users implements Serializable,UserInterface
 {
@@ -31,9 +33,17 @@ class Users implements Serializable,UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $role;
+    private ?string $role = "ROLE_ADMIN";
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $email;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : 0}  )
+     */
+    private bool $isVerified = false;
 
     public function getId(): ?int
     {
@@ -81,7 +91,7 @@ class Users implements Serializable,UserInterface
     public function getRoles(): array
     {
         //return ['ROLE_ADMIN'];
-        return array($this->role);
+        return array($this->role) ;
     }
 
     /**
@@ -147,6 +157,41 @@ class Users implements Serializable,UserInterface
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string|null $email
+     */
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @param bool $isVerified
+     * @return $this
+     */
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
