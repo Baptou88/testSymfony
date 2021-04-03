@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    projet
+    project
 {% endblock %}
 {% block body %}
 
@@ -29,5 +29,48 @@
                 </h2>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <h3>Heure Project</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>temps</td>
+                    <td>Actions</td>
+                </tr>
+
+            </thead>
+            {% for heure_projet in heureprojects %}
+                <tr>
+                    <td>{{ heure_projet.id }}</td>
+                    <td>{{ heure_projet.duree }}</td>
+                    <td>
+
+                            <a href="{{ path('heure_projet_show',{'id': heure_projet.id}) }}" class="btn btn-sm btn-dark" style="display: inline-block">{{ heure_projet.id }} </a>
+                            <div style="display: inline-block">
+                                {{ include('heure_projet/_delete_form.html.twig') }}
+                            </div>
+
+
+
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">No Records</td>
+                </tr>
+            {% endfor %}
+            <tfooter>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>
+                        <a href="{{ path('heure_projet_new') }}" class="btn btn-outline-secondary">new</a>
+
+                    </td>
+                </tr>
+            </tfooter>
+        </table>
+
     </div>
 {% endblock %}

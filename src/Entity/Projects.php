@@ -66,11 +66,17 @@ class Projects
      */
     private $clients;
 
+    /**
+     * @ORM\OneToMany(targetEntity=HeureProjet::class, mappedBy="project")
+     */
+    private $heureProjets;
+
 
 
     public function __construct()
     {
         $this->options = new ArrayCollection();
+        $this->heureProjets = new ArrayCollection();
 
     }
 
@@ -201,6 +207,36 @@ class Projects
     public function setClients(?Clients $clients): self
     {
         $this->clients = $clients;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HeureProjet[]
+     */
+    public function getHeureProjets(): Collection
+    {
+        return $this->heureProjets;
+    }
+
+    public function addHeureProjet(HeureProjet $heureProjet): self
+    {
+        if (!$this->heureProjets->contains($heureProjet)) {
+            $this->heureProjets[] = $heureProjet;
+            $heureProjet->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHeureProjet(HeureProjet $heureProjet): self
+    {
+        if ($this->heureProjets->removeElement($heureProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($heureProjet->getProject() === $this) {
+                $heureProjet->setProject(null);
+            }
+        }
 
         return $this;
     }
