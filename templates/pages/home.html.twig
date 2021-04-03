@@ -1,9 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ dump(app.flashes) }}
-    {% for flash in app.flashes %}
-        <div class="alert">{{ dump(flash) }}</div>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
     <div class="container border">
         <h1>bienvenu sur la home page</h1>
