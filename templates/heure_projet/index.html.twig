@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HeureProjet index{% endblock %}
+
+{% block body %}
+    <h1>HeureProjet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Projects</th>
+                <th>Date</th>
+                <th>Duree</th>
+                <th>IsHidden</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for heure_projet in heure_projets %}
+            <tr>
+                <td>{{ heure_projet.id }}</td>
+                <td>{{ heure_projet.project.code }}</td>
+                <td>{{ heure_projet.Date ? heure_projet.Date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ heure_projet.duree }}</td>
+                <td>{{ heure_projet.isHidden ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('heure_projet_show', {'id': heure_projet.id}) }}">show</a>
+                    <a href="{{ path('heure_projet_edit', {'id': heure_projet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('heure_projet_new') }}">Create new</a>
+{% endblock %}

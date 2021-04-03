@@ -19,8 +19,6 @@ class ProjectController  extends AbstractController
 {
 
     private $em;
-
-
     private $repository;
 
     public function __construct(ProjectsRepository $repository, EntityManagerInterface $em)
@@ -81,9 +79,11 @@ class ProjectController  extends AbstractController
                 'slug' => $projet->getSlug()
             ],301);
         }
+        $heureprojects = $projet->getHeureProjets()->getValues();
         return $this->render('projects/show.html.twig', [
             'projet' => $projet,
-            'current_menu' => 'projects'
+            'current_menu' => 'projects',
+            'heureprojects' => $heureprojects
         ]);
     }
 }

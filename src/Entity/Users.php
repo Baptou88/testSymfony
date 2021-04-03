@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -33,7 +35,7 @@ class Users implements Serializable,UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $role = "ROLE_ADMIN";
+    private ?string $role = "ROLE_USER";
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -44,6 +46,16 @@ class Users implements Serializable,UserInterface
      * @ORM\Column(type="boolean", options={"default" : 0}  )
      */
     private bool $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=HeureProjet::class, mappedBy="Employe")
+     */
+    private $heureProjets;
+
+    public function __construct()
+    {
+        $this->heureProjets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -192,6 +204,36 @@ class Users implements Serializable,UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HeureProjet[]
+     */
+    public function getHeureProjets(): Collection
+    {
+        return $this->heureProjets;
+    }
+
+    public function addHeureProjet(HeureProjet $heureProjet): self
+    {
+        if (!$this->heureProjets->contains($heureProjet)) {
+            $this->heureProjets[] = $heureProjet;
+            $heureProjet->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHeureProjet(HeureProjet $heureProjet): self
+    {
+        if ($this->heureProjets->removeElement($heureProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($heureProjet->getEmploye() === $this) {
+                $heureProjet->setEmploye(null);
+            }
+        }
 
         return $this;
     }

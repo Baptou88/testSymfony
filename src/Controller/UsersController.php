@@ -11,22 +11,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/users")
+ * @Route("/users")
  */
 class UsersController extends AbstractController
 {
     /**
      * @Route("/", name="users_index", methods={"GET"})
+     * @param UsersRepository $usersRepository
+     * @return Response
      */
     public function index(UsersRepository $usersRepository): Response
     {
-        return $this->render('admin/users/index.html.twig', [
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+        return $this->render('users/index.html.twig', [
             'users' => $usersRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/new", name="users_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -42,7 +47,7 @@ class UsersController extends AbstractController
             return $this->redirectToRoute('users_index');
         }
 
-        return $this->render('admin/users/new.html.twig', [
+        return $this->render('users/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -50,16 +55,23 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/{id}", name="users_show", methods={"GET"})
+     * @param Users $user
+     * @return Response
      */
     public function show(Users $user): Response
     {
-        return $this->render('admin/users/show.html.twig', [
+        $heureproject = $user->getHeureProjets()->getValues();
+        return $this->render('users/show.html.twig', [
             'user' => $user,
+            'heureproject' => $heureproject
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="users_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Users $user
+     * @return Response
      */
     public function edit(Request $request, Users $user): Response
     {
@@ -72,7 +84,7 @@ class UsersController extends AbstractController
             return $this->redirectToRoute('users_index');
         }
 
-        return $this->render('admin/users/edit.html.twig', [
+        return $this->render('users/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
