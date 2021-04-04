@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Classes\Month;
 use App\Entity\HeureProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,4 +48,27 @@ class HeureProjetRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findbymonth(Month $month, int $id = null){
+
+        $query = $this->createQueryBuilder('h');
+        //$query = $query->andWhere($query->expr()->between('h.date', $month->getFirstDay()->format(), $month->getLastDay()));
+        $query = $query
+            ->andWhere($query->expr()->between('h.Date', ":d", ":f"))
+            ->setParameter(":d",$month->getFirstDay())
+            ->setParameter(":f",$month->getLastDay())
+            ->orderBy("h.Date","ASC")
+            ->getQuery()
+            ->getResult();
+        $result = [];
+        foreach ($query as $event){
+            $date = $event->getDate()->format('Y-m-d');
+            if (!isset($result[$date])){
+                $result[$date] = [$event];
+            } else{
+                $result[$date][] = $event;
+            }
+        };
+        //return $query;
+        return $result;
+    }
 }
