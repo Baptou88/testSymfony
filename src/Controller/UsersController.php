@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Classes\Month;
 use App\Entity\Users;
 use App\Form\UsersType;
+use App\Repository\HeureProjetRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,14 +58,20 @@ class UsersController extends AbstractController
     /**
      * @Route("/{id}", name="users_show", methods={"GET"})
      * @param Users $user
+     * @param HeureProjetRepository $hprep
      * @return Response
      */
-    public function show(Users $user): Response
+    public function show(Users $user, HeureProjetRepository $hprep, Request $request): Response
     {
+
+        $month = new Month($request->get("month"),$request->get("year"));
+        $heureprojects = $hprep->findbymonth($month);
         $heureproject = $user->getHeureProjets()->getValues();
         return $this->render('users/show.html.twig', [
             'user' => $user,
-            'heureproject' => $heureproject
+            'heureproject' => $heureproject,
+            'heureprojects' => $heureprojects,
+            'month' => $month
         ]);
     }
 

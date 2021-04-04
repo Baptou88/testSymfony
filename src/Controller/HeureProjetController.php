@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classes\Month;
 use App\Entity\HeureProjet;
 use App\Form\HeureProjetType;
 use App\Repository\HeureProjetRepository;
@@ -22,6 +23,8 @@ class HeureProjetController extends AbstractController
      */
     public function index(HeureProjetRepository $heureProjetRepository): Response
     {
+        $month = new Month(4,2021);
+        dump($heureProjetRepository->findbymonth($month));
         return $this->render('heure_projet/index.html.twig', [
             'heure_projets' => $heureProjetRepository->findAll(),
         ]);
