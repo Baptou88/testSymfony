@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="container">
+        TopSolid ok
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>nom</th>
+                <th>Description</th>
+                <th>Comment</th>
+                <th>Etat</th>
+                <th>Ext</th>
+            </tr>
+            </thead>
+            {% for  project in projectTS %}
+                <tr>
+                    <td>{{ project.Id }}</td>
+                    <td>{{ project.Name }}</td>
+                    <td>{{ project.Description }}</td>
+                    <td>{{  project.Comment }}</td>
+                    <td>{{ project.strState }}</td>
+                    <td>{{ project.Extension }}</td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucune donnée</td>
+                </tr>
+            {%  endfor %}
+        </table>
+    </div>
+
+{% endblock %}

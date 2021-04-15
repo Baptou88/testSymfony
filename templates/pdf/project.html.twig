@@ -1,0 +1,18 @@
+{% extends 'basepdf.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <table class="table table-stripped">
+        <tr>
+            <th>Code</th>
+            <td>{{ project.code }}</td>
+        </tr>
+        <tr>
+            <th>Client</th>
+            <td>{{ project.clients.name }}</td>
+        </tr>
+
+
+    </table>
+{%  endblock %}

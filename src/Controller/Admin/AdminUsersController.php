@@ -17,6 +17,8 @@ class AdminUsersController extends AbstractController
 {
     /**
      * @Route("/", name="users_index", methods={"GET"})
+     * @param UsersRepository $usersRepository
+     * @return Response
      */
     public function index(UsersRepository $usersRepository): Response
     {

@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ dump(app.flashes) }}
+
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-{{ label }}">
@@ -47,5 +47,8 @@
         {% else %}
             <p>pas d'access admin</p>
         {% endif %}
+    </div>
+    <div class="container">
+
     </div>
 {% endblock %}

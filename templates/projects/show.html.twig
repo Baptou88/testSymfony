@@ -19,6 +19,8 @@
                 <p>
                 {{ projet.description | nl2br }}
                 </p>
+                <a href="{{ path('Projects.pdf', {'id': projet.id,'slug': projet.slug}) }}" class="btn btn-primary">pdf</a>
+                <a href="{{ path('Projects.json', {'id': projet.id,'slug': projet.slug}) }}" class="btn btn-primary">json</a>
             </div>
             <div class="col-md-4 border">
                 <h2>
@@ -48,6 +50,7 @@
                     <td>
 
                             <a href="{{ path('heure_projet_show',{'id': heure_projet.id}) }}" class="btn btn-sm btn-dark" style="display: inline-block">{{ heure_projet.id }} </a>
+
                             <div style="display: inline-block">
                                 {{ include('heure_projet/_delete_form.html.twig') }}
                             </div>

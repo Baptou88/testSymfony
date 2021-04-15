@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>Nom</th>
+                <td>{{ ipdmobject.Name }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ ipdmobject.Id }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ ipdmobject.Author }}</td>
+            </tr>
+            <tr>
+                <th>Docs</th>
+                <td>
+                    <table class="table">
+                        {% for  project in ipdmobject.DocObjectIds %}
+                            <tr>
+                                <td>
+                                    <form action="{{ path('app_topsolid_post') }}" method="POST">
+                                        <input type="text" id="id" name="id" value="{{ project.Id }}" hidden="hidden">
+                                        <button type="submit" class="btn btn-secondary">{{ project.Id }}</button>
+                                    </form>
+                                </td>
+                                <td>{{ project.Name }}</td>
+                                <td>{{ project.Description }}</td>
+                                <td>{{  project.Comment }}</td>
+
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Aucune donnée</td>
+                            </tr>
+                        {%  endfor %}
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
