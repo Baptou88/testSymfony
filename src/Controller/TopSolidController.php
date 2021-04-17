@@ -78,7 +78,7 @@ class TopSolidController extends AbstractController
     }
 
     /**
-     * @Route("/{id}")
+     * @Route("/{id}",methods={"GET"})
      * @return Response
      */
     public function show($id): Response
@@ -125,7 +125,7 @@ class TopSolidController extends AbstractController
         );
 
         $client = new CurlHttpClient();
-        $response = $client->request('POST',"https://localhost:44336/api/Default1",[
+        $response = $client->request('POST',"https://localhost:44336/api/project",[
             // ...
             'verify_peer' => false,
             'headers' => [
@@ -138,6 +138,38 @@ class TopSolidController extends AbstractController
 
         dump($ipdmobject);
         return $this->render('TopSolid/tests.html.twig', [
+            "ipdmobject" => $ipdmobject
+        ]);
+    }
+
+    /**
+     * @Route("/Document", "topsolid.Document", methods={"POST"})
+     */
+    public function Document(Request $request, SerializerInterface $serializer): Response
+    {
+        $id = $request->request->get("id");
+        $pdmid = new ipdm($id);
+
+        //dump($pdmid->serialize());
+        $json = $serializer->serialize(
+            $pdmid,
+            'json',
+            ['groups' => 'default']
+        );
+        $client = new CurlHttpClient();
+        $response = $client->request('POST',"https://localhost:44336/api/document",[
+            // ...
+            'verify_peer' => false,
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            //'json' => $json,
+            'body' => $json
+        ]);
+        $ipdmobject = $response->toArray();
+
+        dump($ipdmobject);
+        return $this->render("TopSolid/Document.html.twig",[
             "ipdmobject" => $ipdmobject
         ]);
     }
