@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h2>{{ ipdmobject.Name }}</h2>
+
+    <table class="table table-hover table-sm">
+        {% for Element in ipdmobject.Elements %}
+            <tr>
+                <th>{{ Element.FriendlyName }}</th>
+                <td>{{  Element.EdgeCount.EdgeCount}}</td>
+                <td>{{  Element.EdgeCount.FaceCount}}</td>
+        {% else %}
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+

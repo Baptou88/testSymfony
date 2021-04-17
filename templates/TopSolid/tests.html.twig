@@ -9,11 +9,21 @@
             </tr>
             <tr>
                 <th>Id</th>
-                <td>{{ ipdmobject.Id }}</td>
+                <td style="display: inline-block">
+                    <p>{{ ipdmobject.Id }}</p>
+                    <form action="{{ path('app_topsolid_document') }}" method="POST">
+                        <input type="text" id="id" name="id" value="{{ ipdmobject.Id }}" hidden="hidden">
+                        <button type="submit" class="btn btn-secondary btn-sm">Doc</button>
+                    </form>
+                </td>
             </tr>
             <tr>
                 <th>Author</th>
                 <td>{{ ipdmobject.Author }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ ipdmobject.strState }}</td>
             </tr>
             <tr>
                 <th>Docs</th>
@@ -24,12 +34,14 @@
                                 <td>
                                     <form action="{{ path('app_topsolid_post') }}" method="POST">
                                         <input type="text" id="id" name="id" value="{{ project.Id }}" hidden="hidden">
-                                        <button type="submit" class="btn btn-secondary">{{ project.Id }}</button>
+                                        <button type="submit" class="btn btn-secondary btn-sm">{{ project.Id }}</button>
                                     </form>
                                 </td>
                                 <td>{{ project.Name }}</td>
                                 <td>{{ project.Description }}</td>
                                 <td>{{  project.Comment }}</td>
+                                <td>{{ project.Extension }}</td>
+
 
                             </tr>
                         {% else %}
@@ -40,6 +52,63 @@
                     </table>
                 </td>
             </tr>
+            <th>Folder</th>
+            <td>
+                <table class="table">
+                    {% for  project in ipdmobject.FolderIds %}
+                        <tr>
+                            <td>
+                                <form action="{{ path('app_topsolid_post') }}" method="POST">
+                                    <input type="text" id="id" name="id" value="{{ project.Id }}" hidden="hidden">
+                                    <button type="submit" class="btn btn-secondary btn-sm">{{ project.Id }}</button>
+                                </form>
+                            </td>
+                            <td>{{ project.Name }}</td>
+                            <td>{{ project.Description }}</td>
+                            <td>{{  project.Comment }}</td>
+                            <td>{{ project.Extension }}</td>
+
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Aucune donnée</td>
+                        </tr>
+                    {%  endfor %}
+                </table>
+            </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <h4>Révisions</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <thead>
+                        <td>Major</td>
+                        <td>Minor</td>
+                    </thead>
+                </tr>
+            </thead>
+            {%  for majorrev in ipdmobject.MajorRevisions%}
+                <tr>
+                    <th>{{   majorrev.Id }}</th>
+                    <td>
+                        <table class="table table-sm">
+                            {%  for minorrev in majorrev.MinorRevisions %}
+                            <tr>
+                                <td>
+                                    <form action="{{ path('app_topsolid_document') }}" method="POST">
+                                        <input type="text" id="id" name="id" value="{{ minorrev.pdmMinorRevisionId }}" hidden="hidden">
+                                        <button type="submit" class="btn btn-secondary btn-sm">{{ minorrev.pdmMinorRevisionId }}</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
 {% endblock %}
