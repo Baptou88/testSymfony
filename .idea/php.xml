@@ -137,10 +137,14 @@
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+<<<<<<< HEAD
       <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
       <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+=======
+      <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
+>>>>>>> SymfonyEncore
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4">
