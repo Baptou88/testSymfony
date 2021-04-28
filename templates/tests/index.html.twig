@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello TestsController!{% endblock %}
+{% block stylesheets %}
 
+{% endblock %}
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -33,11 +35,11 @@
         </table>
         
     </div>
+    <div class="container " id="three" style="height: 500px">
+
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-    <script type="application/javascript">
-
-        console.log("chargé")
-    </script>
+    {{ encore_entry_script_tags('testsTree') }}
 {% endblock %}
