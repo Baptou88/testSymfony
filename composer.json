@@ -103,20 +103,5 @@
             "@auto-scripts"
         ]
     },
-<<<<<<< HEAD
-    "type": "project"
-=======
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": false,
-            "require": "5.2.*"
-        }
-    },
-
-    "description": "testSymfony"
-
->>>>>>> SymfonyEncore
+    "name": "er/er"
 }
