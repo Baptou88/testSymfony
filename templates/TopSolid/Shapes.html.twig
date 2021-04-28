@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {{ idobject }}
+    </div>
+    <div class="container " id="three" style="height: 1000px">
+
+    </div>
+    <div id="data" style="">
+        {{  retour | json_encode   }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ encore_entry_script_tags('testsTree') }}
+{% endblock %}
+

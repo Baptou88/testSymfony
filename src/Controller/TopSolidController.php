@@ -8,6 +8,7 @@ namespace App\Controller;
 
 
 use App\Entity\TopSolid\ipdm;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Component\HttpFoundation\Request;
@@ -171,6 +172,43 @@ class TopSolidController extends AbstractController
         dump($ipdmobject);
         return $this->render("TopSolid/Document.html.twig",[
             "ipdmobject" => $ipdmobject
+        ]);
+    }
+
+    /**
+     * @Route("/shapes","topsolid.Shapes", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function shapes(Request $request, SerializerInterface $serializer):Response
+    {
+        $id = $request->request->get("id");
+        $pdmid = new ipdm($id);
+
+        //dump($pdmid->serialize());
+        $json = $serializer->serialize(
+            $pdmid,
+            'json',
+            ['groups' => 'default']
+        );
+        $client = new CurlHttpClient();
+        $response = $client->request('POST',"https://localhost:44336/api/Shapes",[
+            // ...
+            'verify_peer' => false,
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            //'json' => $json,
+            'body' => $json
+        ]);
+        $ipdmobject = $response->toArray();
+        $retour = json_encode($ipdmobject);
+
+        dump($ipdmobject,$retour);
+        return $this->render("TopSolid/Shapes.html.twig",[
+            "ipdmobject"=> $ipdmobject,
+            "retour" => $retour,
+            "idobject" => $id
         ]);
     }
 }
