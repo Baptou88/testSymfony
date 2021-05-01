@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as THREE from 'three';
 import {OrbitControls} from  'three/examples/jsm/controls/OrbitControls'
 
@@ -21,6 +22,22 @@ console.log(threeNode);
 
 const camera = new THREE.PerspectiveCamera( 75, threeNode.clientWidth / threeNode.clientHeight, 1, 500 );
 camera.position.set( 5, 5, 5 );
+=======
+console.log("testsTree.js chargé")
+
+import * as THREE from 'three';
+
+const scene = new THREE.Scene();
+
+const threeNode = document.getElementById("three")
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( threeNode.clientWidth , threeNode.clientHeight );
+threeNode.appendChild(renderer.domElement);
+console.log(threeNode);
+
+const camera = new THREE.PerspectiveCamera( 45, threeNode.clientWidth / threeNode.clientHeight, 1, 500 );
+camera.position.set( 50, -10, 50 );
+>>>>>>> origin/master
 camera.lookAt( 0, 0, 0 );
 
 
@@ -36,6 +53,7 @@ points.push(new THREE.Vector3(10,0,40))
 
 const geometry = new THREE.BufferGeometry().setFromPoints( points );
 
+<<<<<<< HEAD
 const cube = new THREE.Mesh(
     new THREE.BoxBufferGeometry(1,1,1),
     new THREE.MeshNormalMaterial()
@@ -101,3 +119,10 @@ tick();
 //     camera.updateProjectionMatrix()
 //     renderer.setSize(threeNode.clientWidth / threeNode.clientHeight)
 // })
+=======
+
+const line = new THREE.Line( geometry, material );
+
+scene.add( line );
+renderer.render( scene, camera );
+>>>>>>> origin/master
