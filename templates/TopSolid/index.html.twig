@@ -23,8 +23,8 @@
             <tr>
                 <td>
                     <form action="{{ path('app_topsolid_post') }}" method="POST">
-                        <input type="text" id="id" name="id" value="{{ project.Id }}" hidden="hidden">
-                        <button type="submit" class="btn btn-secondary btn-sm">{{ project.Id }}</button>
+                        <input type="text" id="id" name="id" value="{{ project.ID.pdmObjectId }}" hidden="hidden">
+                        <button type="submit" class="btn btn-secondary btn-sm">{{ project.ID.pdmObjectId }}</button>
                     </form>
                 </td>
                 <td>{{ project.Name }}</td>

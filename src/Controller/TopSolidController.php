@@ -24,6 +24,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
  */
 class TopSolidController extends AbstractController
 {
+    public static string $base_url = "https://localhost:44305/api/";
 /*//    /**
 //     * @Route("/")
 //     * @return Response
@@ -54,7 +55,7 @@ class TopSolidController extends AbstractController
     public function index(): Response
     {
         $client = new CurlHttpClient();
-        $response = $client->request('GET',"https://localhost:44336/api/project/",[
+        $response = $client->request('GET',self::$base_url."/project/",[
             // ...
             'verify_peer' => false,
 //        'extra' => [
@@ -68,10 +69,12 @@ class TopSolidController extends AbstractController
             $projectTS = $response->toArray();
 
         }
+
          catch (TransportExceptionInterface $e) {
-            $this->addFlash('error','impossible dacceder au web service TS');
+            $this->addFlash('error','impossible dacceder au web service TS ' . e);
             $projectTS = [];
         }
+        dump($projectTS);
         return $this->render('TopSolid/index.html.twig',[
             'projectTS'=>$projectTS
         ]);
@@ -84,7 +87,7 @@ class TopSolidController extends AbstractController
     public function show($id): Response
     {
         $client = new CurlHttpClient();
-        $response = $client->request('GET',"https://localhost:44336/api/project/$id",[
+        $response = $client->request('GET',self::$base_url."project/$id",[
             // ...
             'verify_peer' => false,
 //        'extra' => [
@@ -125,7 +128,7 @@ class TopSolidController extends AbstractController
         );
 
         $client = new CurlHttpClient();
-        $response = $client->request('POST',"https://localhost:44336/api/project",[
+        $response = $client->request('POST',self::$base_url."project",[
             // ...
             'verify_peer' => false,
             'headers' => [
