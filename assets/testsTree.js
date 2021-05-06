@@ -9,7 +9,27 @@ console.log("testsTree.js chargé")
 
 const scene = new THREE.Scene();
 
-const threeNode = document.getElementById("three")
+const threeNode = document.getElementById("three");
+const data = document.getElementById("data").innerText;
+const dataparse = JSON.parse(data);
+console.log(dataparse);
+dataparse.forEach(element =>  {
+    console.log(element);
+    const el = document.getElementById("liste")
+    const li = el.innerText += element['Name']
+
+    element['Faces'].forEach(face => {
+        const points = [];
+        face['Vertices'].forEach(Vertice => {
+            points.push( new THREE.Vector3( Vertice['coord']['X']*100, Vertice['coord']['Y']*100, Vertice['coord']['Z']*100 ) );
+        })
+        const geometry = new THREE.BufferGeometry().setFromPoints( points );
+        const line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xf000ff } ) );
+        scene.add(line)
+    })
+})
+
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( threeNode.clientWidth , threeNode.clientHeight );
 threeNode.appendChild(renderer.domElement);
@@ -66,11 +86,11 @@ const helperxy = new THREE.PlaneHelper( planexyhelper, 10, 0xfffa00 );
 const controls = new OrbitControls( camera, renderer.domElement );
 
 //scene.add(camera);
-scene.add( line );
+
 scene.add(new THREE.AxesHelper(1));
-scene.add(new THREE.GridHelper(10,10))
+//scene.add(new THREE.GridHelper(10,10))
 //scene.add(cube);
- scene.add(helperxy);
+//scene.add(helperxy);
 // scene.add(planexz)
 // scene.add(planeyz)
 
@@ -79,12 +99,8 @@ const dir = new THREE.Vector3( 1, 2, 0 );
 //normalize the direction vector (convert to vector of length 1)
 dir.normalize();
 
-const origin = new THREE.Vector3( 0, 0, 0 );
-const length = 1;
-const hex = 0xffff00;
 
-const arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
-scene.add( arrowHelper );
+
 
 function tick() {
     renderer.render( scene, camera );
@@ -101,8 +117,8 @@ tick();
 // })
 
 
-const line = new THREE.Line( geometry, material );
-
-scene.add( line );
+//
+//
+// scene.add( line );
 renderer.render( scene, camera );
 

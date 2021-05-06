@@ -160,7 +160,7 @@ class TopSolidController extends AbstractController
             ['groups' => 'default']
         );
         $client = new CurlHttpClient();
-        $response = $client->request('POST',"https://localhost:44336/api/document",[
+        $response = $client->request('POST',self::$base_url. "document",[
             // ...
             'verify_peer' => false,
             'headers' => [
@@ -174,6 +174,43 @@ class TopSolidController extends AbstractController
         dump($ipdmobject);
         return $this->render("TopSolid/Document.html.twig",[
             "ipdmobject" => $ipdmobject
+        ]);
+    }
+
+    /**
+     * @Route("/shape", "topsolid.shape", methods={"POST"})
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @return Response
+     */
+    public function Shape(Request $request, SerializerInterface $serializer): Response
+    {
+        $id = $request->request->get("id");
+        $pdmid = new ipdm($id);
+
+        //dump($pdmid->serialize());
+        $json = $serializer->serialize(
+            $pdmid,
+            'json',
+            ['groups' => 'default']
+        );
+        $client = new CurlHttpClient();
+        $response = $client->request('POST',self::$base_url. "shape",[
+            // ...
+            'verify_peer' => false,
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            //'json' => $json,
+            'body' => $json
+        ]);
+        $ipdmobject = $response->toArray();
+
+        dump($ipdmobject);
+        return $this->render("TopSolid/Shapes.html.twig",[
+            "ipdmobject" => $ipdmobject,
+            "idobject" => $id,
+            "retour" => $ipdmobject
         ]);
     }
 }
