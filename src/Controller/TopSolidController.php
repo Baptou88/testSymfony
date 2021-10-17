@@ -71,7 +71,7 @@ class TopSolidController extends AbstractController
         }
 
          catch (TransportExceptionInterface $e) {
-            $this->addFlash('error','impossible dacceder au web service TS ' . e);
+            $this->addFlash('error','impossible dacceder au web service TS ' . $e);
             $projectTS = [];
         }
         dump($projectTS);
