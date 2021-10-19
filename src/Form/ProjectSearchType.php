@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Option;
 use App\Entity\ProjectSearch;
 
+use App\Entity\TypeProjet;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -16,19 +17,32 @@ class ProjectSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', IntegerType::class, [
+//            ->add('type', IntegerType::class, [
+//                'required' => false,
+//                'label' => false,
+//                'attr' => [
+//                    'placeholder' => 'type'
+//                ]
+//            ])
+            ->add('TypeProjet', EntityType::class, [
                 'required' => false,
                 'label' => false,
+                'class' => TypeProjet::class,
+                'choice_label' => 'name',
+                'multiple'  => false,
                 'attr' => [
                     'placeholder' => 'type'
                 ]
             ])
             ->add('options', EntityType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'false',
                 'class' => Option::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
+                'attr' => [
+                    'placeholder' => 'Options'
+                ]
             ])
             
         ;

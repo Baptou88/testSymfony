@@ -43,18 +43,11 @@ class ProjectController  extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request):Response
     {
-        // $Projet = new Projects;
-        // $Projet->setCode("121/A")
-        //     ->setDateEntree(new DateTime())
-        //     ->setDateDelai(new DateTime())
-        //     ->settype(1);
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($Projet);
-        // $em->flush();
-        //$repository = $this->getDoctrine()->getRepository(Projects::class);
+
         $search = new ProjectSearch();
         $form = $this->createForm(ProjectSearchType::class, $search);
         $form->handleRequest($request);
+        dump($search);
         $query = $this->repository->findAllVisible($search);
 
         $pagination = $paginator->paginate(
@@ -62,8 +55,7 @@ class ProjectController  extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
-        //dump($Projet);
-        //dump($repository);
+
         return $this->render('projects/index.html.twig', [
             'current_menu' => 'projects',
             'projects' => $pagination,

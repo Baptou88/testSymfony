@@ -2,4 +2,5 @@ code: cde
 date_entree: DateEntre
 Submit: Soumettre 
 TypeProjet: Type Projet
-type: Type Projet
+type: TypeProjet
+Options: Options

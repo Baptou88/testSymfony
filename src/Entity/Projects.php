@@ -73,6 +73,9 @@ class Projects
 
 
 
+
+
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
@@ -126,17 +129,7 @@ class Projects
         return $this;
     }
 
-    public function getType(): ?int
-    {
-        return $this->Type;
-    }
 
-    public function setType(int $Type): self
-    {
-        $this->Type = $Type;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -190,7 +183,7 @@ class Projects
         return $this->TypeProjet;
     }
 
-    public function setTypeProjet(?TypeProjet $TypeProjet): self
+    public function setTypeProjet(TypeProjet $TypeProjet): self
     {
         $this->TypeProjet = $TypeProjet;
 

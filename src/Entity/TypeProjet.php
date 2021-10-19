@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TypeProjetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,9 +34,15 @@ class TypeProjet
      */
     private $projects;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Projects::class, mappedBy="type")
+     */
+    private $Project;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+        $this->Project = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,6 +70,36 @@ class TypeProjet
     public function setIsVisible(bool $IsVisible): self
     {
         $this->IsVisible = $IsVisible;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Projects[]
+     */
+    public function getProject(): Collection
+    {
+        return $this->Project;
+    }
+
+    public function addProject(Projects $project): self
+    {
+        if (!$this->Project->contains($project)) {
+            $this->Project[] = $project;
+            $project->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Projects $project): self
+    {
+        if ($this->Project->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getType() === $this) {
+                $project->setType(null);
+            }
+        }
 
         return $this;
     }

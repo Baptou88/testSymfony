@@ -46,16 +46,27 @@ class ProjectsRepository extends ServiceEntityRepository
     public function findAllVisible(ProjectSearch $search): Query
     {
         $query = $this->createQueryBuilder('p');
-        $query = $query
-            ->innerJoin(Clients::class,"c");
-        if ($search->gettype()) {
+        $query = $query->innerJoin(Clients::class,"c");
+
+        if ($search->getTypeProjet()) {
+            dump("la2");
             $query = $query
-                ->andWhere('p.Type = :type')
-                ->setParameter('type' , $search->gettype());
+                ->andWhere('p.TypeProjet = :type')
+                ->setParameter('type' , $search->getTypeProjet());
+//            foreach ($search->getTypeProjet() as $key => $option)
+//            {
+//                dump($option);
+//                $query = $query
+//                    ->andWhere(":TypeProjet$key MEMBER OF p.TypeProjet")
+//                    ->setParameter("TypeProjet",$option);
+//            }
+
         }
         if ($search->getOptions()->count() > 0 ) {
+            dump("la3");
                 foreach ($search->getOptions() as $key => $option)
                 {
+
                     $query = $query
                         ->andWhere(":option$key MEMBER OF p.options")
                         ->setParameter("option$key",$option);

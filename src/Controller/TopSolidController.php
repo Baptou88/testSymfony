@@ -55,7 +55,7 @@ class TopSolidController extends AbstractController
     public function index(): Response
     {
         $client = new CurlHttpClient();
-        $response = $client->request('GET',self::$base_url."/project/",[
+        $response = $client->request('GET',self::$base_url."project/",[
             // ...
             'verify_peer' => false,
 //        'extra' => [

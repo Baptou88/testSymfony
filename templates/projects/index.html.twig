@@ -10,12 +10,12 @@
         <h1>Bienvenu sur la page Projects</h1>
     </div>
 
-    <div class="container border mb-2">
+    <div class="container border pt-3">
         {{form_start(form)}}
         <div class="form-row row">
             <div class="col">
-                {{form_row(form.type)}}
-
+                {{form_row(form.TypeProjet)}}
+                {{ form_rest(form) }}
             </div>
             <div class="col">
                 <button class="btn btn-primary" type="submit">Soumettre</button>

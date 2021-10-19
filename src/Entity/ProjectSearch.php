@@ -3,47 +3,48 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ProjectSearch  
 {
     /**
-    
-     *
-     * @var int|null
+ *
+     * @var ?TypeProjet
      */
-    private $type;
+    private ?TypeProjet $typeProjet;
 
     /**
      * @var ArrayCollection
      */
+    private ArrayCollection $options ;
 
-    private $options ;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
+        $this->typeProjet = null;
         $this->options = new ArrayCollection();
     }
     /**
-     * Get the value of type
-     *@Assert\GreaterThan(0)
-     * @return  int|null
+     *
+     * @return  TypeProjet|null
+     *
      */ 
-    public function getType(): ?int
+    public function getTypeProjet(): ?TypeProjet
     {
-        return $this->type;
+        return $this->typeProjet;
     }
 
     /**
      * Set the value of type
      *
-     * @param  int|null  $type
+     *@param  TypeProjet|null
      *
      * @return  self
      */ 
-    public function setType($type)
+    public function setTypeProjet(TypeProjet $typeprojet)
     {
-        $this->type = $type;
+        $this->typeProjet = $typeprojet;
 
         return $this;
     }

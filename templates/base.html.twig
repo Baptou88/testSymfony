@@ -45,6 +45,9 @@
           <li class="nav-item">
               <a class="nav-link {% if current_menu is defined and current_menu == 'TopSolid' %}active{%endif %} " aria-current="page" href="{{path('app_topsolid_index')}}">TopSolid</a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link {% if current_menu is defined and current_menu == 'TopSolid2' %}active{%endif %} " aria-current="page" href="{{path('top_solid2')}}">TopSolid2</a>
+          </li>
 
         {% if app.user %}
         <li class="nav-item">
