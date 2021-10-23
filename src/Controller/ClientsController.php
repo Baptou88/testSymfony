@@ -68,7 +68,7 @@ class ClientsController extends AbstractController
     {
 
         $projects = $client->getProjects()->getValues();
-        dump($client->getProjects()->first()->getTypeProjet()->getname());
+        dump($client->getProjects()->first());
 
 
         return $this->render('clients/show.html.twig', [

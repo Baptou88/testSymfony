@@ -53,8 +53,10 @@ class AdminOptionController extends AbstractController
      */
     public function show(Option $option): Response
     {
+        $projects = $option->getProjects();
         return $this->render('admin/option/show.html.twig', [
             'option' => $option,
+            'projects' => $projects
         ]);
     }
 

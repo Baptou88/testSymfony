@@ -62,16 +62,18 @@ class AdminProjectController  extends AbstractController
      */
     public function edit(Projects $project, Request $request): Response
     {
-        dump($project->getClients());
+        //dump($project->getClients());
         $form = $this->createForm(ProjectType::class, $project);
+        dump('erzr');
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            dump("la");
             $this->em->flush();
             $this->addFlash('success','Modifié avec succés');
             return $this->redirectToRoute('admin.Projects.index',[],301);
         }
-
+        dump("la2");
         return $this->render('admin/projects/edit.html.twig',[
             'project' => $project,
             'form' => $form->createView()

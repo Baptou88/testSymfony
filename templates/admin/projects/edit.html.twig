@@ -30,7 +30,7 @@
                 {{form_label(form.DateEntree,'name ok',{ 'attr': {'class': 'border'},  })}}
             </div>
             <div class="row">
-                {{form_widget(form)}}
+{#                {{form_widget(form)}}#}
             </div>
             
             <button type="submit" class="btn btn-secondary">Valider</button>
@@ -45,6 +45,6 @@
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
-        $('select').select2();
+        //$('select').select2();
     </script>
 {% endblock %}

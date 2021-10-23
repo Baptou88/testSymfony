@@ -51,8 +51,8 @@ class ProjectsRepository extends ServiceEntityRepository
         if ($search->getTypeProjet()) {
             dump("la2");
             $query = $query
-                ->andWhere('p.TypeProjet = :type')
-                ->setParameter('type' , $search->getTypeProjet());
+                ->andWhere('p.TypeProjet = :typeproject')
+                ->setParameter('typeproject' , $search->getTypeProjet());
 //            foreach ($search->getTypeProjet() as $key => $option)
 //            {
 //                dump($option);

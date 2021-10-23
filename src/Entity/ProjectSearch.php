@@ -19,11 +19,13 @@ class ProjectSearch
      */
     private ArrayCollection $options ;
 
+    private ArrayCollection $clients;
 
     #[Pure] public function __construct()
     {
         $this->typeProjet = null;
         $this->options = new ArrayCollection();
+        $this->clients = new ArrayCollection();
     }
     /**
      *
@@ -63,6 +65,22 @@ class ProjectSearch
     public function setOptions(ArrayCollection $options): void
     {
         $this->options = $options;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getClients(): ArrayCollection
+    {
+        return $this->clients;
+    }
+
+    /**
+     * @param ArrayCollection $clients
+     */
+    public function setClients(ArrayCollection $clients): void
+    {
+        $this->clients = $clients;
     }
 
 }

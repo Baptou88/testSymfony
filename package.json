@@ -16,6 +16,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "three": "^0.128.0"
+        "bootstrap-icons": "^1.6.1",
+        "three": "^0.128.0",
+        "tom-select": "^2.0.0-rc.4"
     }
 }

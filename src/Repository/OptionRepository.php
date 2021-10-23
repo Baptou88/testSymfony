@@ -19,6 +19,15 @@ class OptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Option::class);
     }
 
+    public function search(string $option): array
+    {
+    return $this->createQueryBuilder('o')
+        ->where('o.name LIKE :option')
+        ->setParameter('option',"%$option%")
+        ->setMaxResults(15)
+        ->getQuery()
+        ->getArrayResult();
+    }
     // /**
     //  * @return Option[] Returns an array of Option objects
     //  */

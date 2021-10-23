@@ -32,17 +32,14 @@ class TypeProjet
     /**
      * @ORM\OneToMany(targetEntity=Projects::class, mappedBy="TypeProjet")
      */
-    private $projects;
+    private $Projects;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Projects::class, mappedBy="type")
-     */
-    private $Project;
+
 
     public function __construct()
     {
-        $this->projects = new ArrayCollection();
-        $this->Project = new ArrayCollection();
+
+        $this->Projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,14 +76,14 @@ class TypeProjet
      */
     public function getProject(): Collection
     {
-        return $this->Project;
+        return $this->Projects;
     }
 
     public function addProject(Projects $project): self
     {
-        if (!$this->Project->contains($project)) {
-            $this->Project[] = $project;
-            $project->setType($this);
+        if (!$this->Projects->contains($project)) {
+            $this->Projects[] = $project;
+            $project->setTypeProjet($this);
         }
 
         return $this;
@@ -94,10 +91,10 @@ class TypeProjet
 
     public function removeProject(Projects $project): self
     {
-        if ($this->Project->removeElement($project)) {
+        if ($this->Projects->removeElement($project)) {
             // set the owning side to null (unless already changed)
-            if ($project->getType() === $this) {
-                $project->setType(null);
+            if ($project->getTypeProjet() === $this) {
+                $project->setTypeProjet(null);
             }
         }
 

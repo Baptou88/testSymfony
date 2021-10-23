@@ -55,7 +55,7 @@ class ProjectController  extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
-
+        dump($query->getArrayResult());
         return $this->render('projects/index.html.twig', [
             'current_menu' => 'projects',
             'projects' => $pagination,

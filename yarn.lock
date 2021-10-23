@@ -857,6 +857,11 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@orchidjs/sifter@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-0.9.0.tgz#07eab78de2ac1799d2c169bf1f2e3e746d86c32c"
+  integrity sha512-NDYPhjdydJNbwDRvMFyUFFeImj1a+CJAwpjh/goKmvTHi726DPAJ1nW0X05p/GsorQgXHwhgDPyu6WaYqd4cRA==
+
 "@stimulus/core@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@stimulus/core/-/core-2.0.0.tgz#140c85318d6a8a8210c0faf182223b8459348877"
@@ -1439,6 +1444,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+
+bootstrap-icons@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.6.1.tgz#66c87beff34840efa5f248b3091c82d9348864e8"
+  integrity sha512-MNpF89+njCdVJePDRbCd2DrUusqIyNsPlBrdKqBEXAvFZpwb+Gc8k2VlyF2ueiDQn1PoeTSg9UqQNgx8tGqHAA==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -4750,6 +4760,13 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+
+tom-select@^2.0.0-rc.4:
+  version "2.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.0.0-rc.4.tgz#1a8809f3a6c7a162a3d40221845eccc346f51656"
+  integrity sha512-6kjF1mblEEEkbtUtEezlqIVcCkgj1WH0rFvemRUApHew88r+zxKcHiGwaABxikN1sD0cZO6ROJ1rWg8B+xe6fQ==
+  dependencies:
+    "@orchidjs/sifter" "^0.9.0"
 
 tslib@^1.9.0:
   version "1.14.1"

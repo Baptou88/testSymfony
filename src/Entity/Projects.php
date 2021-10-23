@@ -38,10 +38,7 @@ class Projects
      */
     private $DateDelai;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $Type;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -54,11 +51,11 @@ class Projects
     private $options;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeProjet::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=TypeProjet::class, inversedBy="Projects")
      *
      */
     private $TypeProjet;
-//@ORM\ManyToOne(targetEntity=Clients::class, inversedBy="projects")
+
     /**
      *
      * @ORM\ManyToOne  (targetEntity=Clients::class, inversedBy="projects")

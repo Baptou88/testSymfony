@@ -11,9 +11,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProjectType extends AbstractType
 {
+
+    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    {
+        
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -27,16 +33,21 @@ class ProjectType extends AbstractType
             ->add('DateDelai',DateTimeType::class,[
                 'years' => range(1970,2100),
             ])
-            ->add('Type')
+
             ->add('description')
-            ->add('options' , EntityType:: class, [
-                'class' => Option::class,
-                'choice_label' => 'name',
+//            ->add('options' , EntityType:: class, [
+//                'class' => Option::class,
+//                'choice_label' => 'name',
+//                'multiple' => true,
+//                'required' => false,
+//
+//            ])
+            ->add('options' , SearchableEntityType::class, [
+                'class'=> Option::class,
                 'multiple' => true,
-                'required' => false,
-
+                'search' => $this->urlGenerator->generate("api_options"),
+                'label_property' =>'name'
             ])
-
             ->add("TypeProjet", EntityType::class, [
                 'choice_label' => 'name',
                 'class' => TypeProjet::class,

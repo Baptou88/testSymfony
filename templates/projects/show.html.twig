@@ -5,29 +5,57 @@
 {% endblock %}
 {% block body %}
 
-    <div class="container">
+    <div class="container border border-primary">
         
-        <div class="row">
-            <a href="{{ path('admin.Projects.edit' , {'id':projet.id}) }}">edit</a>
-        </div>
-        <div class="row">
+        <div class="row my-3">
+            <div class="col">
+                <a href="{{ path('admin.Projects.edit' , {'id':projet.id}) }}" class="btn btn-secondary">edit</a>
+
+            </div>
+            <div class="col">
+                <a href="{{ path('admin.Projects.delete', {'id':projet.id}) }}" class="btn btn-danger">Delete</a>
+
+            </div>
+                                </div>
+        <div class="row py-2">
             <div class="col-md-8 border">
-                <h1>page projet</h1>
+                <h1>Page Projet</h1>
+                <h3>Description</h3>
                 <p>
                 {{ projet.description }}
                 </p>
                 <p>
                 {{ projet.description | nl2br }}
                 </p>
-                <a href="{{ path('Projects.pdf', {'id': projet.id,'slug': projet.slug}) }}" class="btn btn-primary">pdf</a>
-                <a href="{{ path('Projects.json', {'id': projet.id,'slug': projet.slug}) }}" class="btn btn-primary">json</a>
+                <h3>Client</h3>
+                <p>{{ projet.clients.name ?? "Nom Client inconnu :(" }}</p>
+                {% if projet.clients %}
+                <a href="{{ path('clients_show',{'id': projet.clients.id}) }}">{{ projet.clients.name }}</a>
+                {% else %}
+                <p>Client non renseigné</p>
+                {% endif %}
+                <h3>
+                    Type Project
+                </h3>
+                {% if projet.typeProjet %}
+                <a href="{{ path('type_projet_show',{'id': projet.typeProjet.id}) }}" class="btn btn-secondary">{{ projet.typeProjet.name }}</a>
+                {% else %}
+                    <p>Type projet non renseigné</p>
+                {% endif %}
+                <h3>Actions:</h3>
+                <ul>
+                    <li><a href="{{ path('Projects.pdf', {'id': projet.id,'slug': projet.slug}) }}" class="btn btn-primary">pdf</a>
+                    </li>
+                    <li><a href="{{ path('Projects.json', {'id': projet.id,'slug': projet.slug}) }}" class="btn btn-primary">json</a>
+                    </li>
+                </ul>
             </div>
             <div class="col-md-4 border">
                 <h2>
-                    {{projet.code}}
+                    <span id="projet_id">{{projet.code}}</span>
                     {{ dump(projet.clients) }}
                     {{ dump(projet.clients.name ?? "null") }}
-                    {{ dump(projet.clients) }}
+
                 </h2>
             </div>
         </div>
@@ -76,4 +104,7 @@
         </table>
 
     </div>
+{% endblock %}
+{% block javascripts %}
+   {{ encore_entry_script_tags('Project') }}
 {% endblock %}
