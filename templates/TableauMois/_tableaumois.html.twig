@@ -1,11 +1,11 @@
 <div class="container border">
-    {{ month.toString }}
+    {{ Month.toString }}
 </div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <td>Jour</td>
-            {% for i in 1..(month.lastDay.format('d')) %}
+            {% for i in 1..(Month.lastDay.format('d')) %}
             <th>{{ i }}</th>
             {% endfor %}
         </tr>
@@ -15,11 +15,11 @@
     {% for j in 0..0 %}
         <tr>
             <td>{{ j }}</td>
-            {% for i in 1..(month.lastDay.format('d')) %}
-                <td>
+            {% for i in 1..(Month.lastDay.format('d')) %}
+                <td class="tm-days" data-month="{{ Month.month }}" data-day="{{ i }}" data-year="{{ Month.year }}">
 
-                {% if (month.getYear ~ "-"~ month.getMonth ~"-"~i)|date("Y-m-d") in heureprojects|keys %}
-                    {% for record in heureprojects[(month.getYear ~ "-"~ month.getMonth ~"-"~i)|date("Y-m-d")] %}
+                {% if (Month.getYear ~ "-"~ Month.getMonth ~"-"~i)|date("Y-m-d") in heureprojects|keys %}
+                    {% for record in heureprojects[(Month.getYear ~ "-"~ Month.getMonth ~"-"~i)|date("Y-m-d")] %}
 
                       <a href="{{ path('heure_projet_show',{'id': record.id}) }}">{{ record.id }}</a>
                     {% endfor %}

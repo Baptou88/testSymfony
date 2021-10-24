@@ -24,6 +24,7 @@ Encore
     .addEntry('testsTree', './assets/testsTree.js')
     .addEntry('tests','./assets/tests.js')
     .addEntry('Project','./assets/Project.js')
+    .addEntry('TableauMois','./assets/TableauMois.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

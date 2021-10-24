@@ -22,11 +22,7 @@ class HeureProjet
      */
     private $Date;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="heureProjets")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Employe;
+
 
     /**
      * @ORM\Column(type="float")
@@ -43,6 +39,12 @@ class HeureProjet
      * @ORM\JoinColumn(nullable=false)
      */
     private $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Employes::class, inversedBy="heureProjets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Employe;
 
     public function getId(): ?int
     {
@@ -61,12 +63,12 @@ class HeureProjet
         return $this;
     }
 
-    public function getEmploye(): ?Users
+    public function getEmploye(): ?Employes
     {
         return $this->Employe;
     }
 
-    public function setEmploye(?Users $Employe): self
+    public function setEmploye(?Employes $Employe): self
     {
         $this->Employe = $Employe;
 

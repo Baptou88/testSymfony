@@ -48,14 +48,16 @@ class HeureProjetRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findbymonth(Month $month, int $id = null){
+    public function findbymonth(Month $month, int $employeid){
 
         $query = $this->createQueryBuilder('h');
         //$query = $query->andWhere($query->expr()->between('h.date', $month->getFirstDay()->format(), $month->getLastDay()));
         $query = $query
             ->andWhere($query->expr()->between('h.Date', ":d", ":f"))
+            ->andWhere("h.Employe = :e")
             ->setParameter(":d",$month->getFirstDay())
             ->setParameter(":f",$month->getLastDay())
+            ->setParameter(":e", $employeid)
             ->orderBy("h.Date","ASC")
             ->getQuery()
             ->getResult();

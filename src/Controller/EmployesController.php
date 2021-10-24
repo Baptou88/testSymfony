@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Classes\Month;
 use App\Entity\Employes;
 use App\Form\EmployesType;
 use App\Repository\EmployesRepository;
+use App\Repository\HeureProjetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,10 +45,15 @@ class EmployesController extends AbstractController
     }
 
     #[Route('/{id}', name: 'employes_show', methods: ['GET'])]
-    public function show(Employes $employe): Response
+    public function show(Employes $employe, HeureProjetRepository $heureProjetRepository): Response
     {
+        $Month = new Month(10,2021);
+        $heureprojets = $heureProjetRepository->findbymonth($Month,$employe->getId());
+        dump($heureprojets);
         return $this->render('employes/show.html.twig', [
             'employe' => $employe,
+            'Month' => $Month,
+            'heureprojects' => $heureprojets
         ]);
     }
 

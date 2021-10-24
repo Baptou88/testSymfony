@@ -64,14 +64,14 @@ class UsersController extends AbstractController
     public function show(Users $user, HeureProjetRepository $hprep, Request $request): Response
     {
 
-        $month = new Month($request->get("month"),$request->get("year"));
-        $heureprojects = $hprep->findbymonth($month);
-        $heureproject = $user->getHeureProjets()->getValues();
+//        $month = new Month($request->get("month"),$request->get("year"));
+//        $heureprojects = $hprep->findbymonth($month);
+//        $heureproject = $user->getHeureProjets()->getValues();
         return $this->render('users/show.html.twig', [
             'user' => $user,
-            'heureproject' => $heureproject,
-            'heureprojects' => $heureprojects,
-            'month' => $month
+//            'heureproject' => $heureproject,
+//            'heureprojects' => $heureprojects,
+//            'month' => $month
         ]);
     }
 

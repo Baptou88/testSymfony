@@ -47,14 +47,11 @@ class Users implements Serializable,UserInterface
      */
     private bool $isVerified = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=HeureProjet::class, mappedBy="Employe")
-     */
-    private $heureProjets;
+
 
     public function __construct()
     {
-        $this->heureProjets = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -208,33 +205,9 @@ class Users implements Serializable,UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|HeureProjet[]
-     */
-    public function getHeureProjets(): Collection
-    {
-        return $this->heureProjets;
-    }
 
-    public function addHeureProjet(HeureProjet $heureProjet): self
-    {
-        if (!$this->heureProjets->contains($heureProjet)) {
-            $this->heureProjets[] = $heureProjet;
-            $heureProjet->setEmploye($this);
-        }
 
-        return $this;
-    }
 
-    public function removeHeureProjet(HeureProjet $heureProjet): self
-    {
-        if ($this->heureProjets->removeElement($heureProjet)) {
-            // set the owning side to null (unless already changed)
-            if ($heureProjet->getEmploye() === $this) {
-                $heureProjet->setEmploye(null);
-            }
-        }
 
-        return $this;
-    }
+
 }

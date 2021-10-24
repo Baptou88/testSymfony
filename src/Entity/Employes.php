@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmployesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Employes
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $ModifiedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=HeureProjet::class, mappedBy="Employe")
+     */
+    private $heureProjets;
+
+    public function __construct()
+    {
+        $this->heureProjets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class Employes
     public function setModifiedAt(?\DateTimeImmutable $ModifiedAt): self
     {
         $this->ModifiedAt = $ModifiedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HeureProjet[]
+     */
+    public function getHeureProjets(): Collection
+    {
+        return $this->heureProjets;
+    }
+
+    public function addHeureProjet(HeureProjet $heureProjet): self
+    {
+        if (!$this->heureProjets->contains($heureProjet)) {
+            $this->heureProjets[] = $heureProjet;
+            $heureProjet->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHeureProjet(HeureProjet $heureProjet): self
+    {
+        if ($this->heureProjets->removeElement($heureProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($heureProjet->getEmploye() === $this) {
+                $heureProjet->setEmploye(null);
+            }
+        }
 
         return $this;
     }

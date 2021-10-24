@@ -34,6 +34,12 @@ class Month
     public function toString(){
         return $this->months[$this->month -1] . " " . $this->year;
     }
+
+    public function getStartWeek(): int
+    {
+        $start = $this->getFirstDay();
+        return intval($start->format('W'));
+    }
     /**
      * getWeeks
      *
@@ -41,7 +47,7 @@ class Month
      */
     public function getWeeks(): int
     {
-        $start = $this->getFirstDay();
+        //$start = $this->getFirstDay();
 
         //$end = (clone $start)->modify('+1 month -1 day');
         $end = $this->getLastDay();
@@ -50,7 +56,8 @@ class Month
             $end->modify('next sunday');
         }
         //dump($end);
-        $startWeek = intval($start->format('W'));
+        //$startWeek = intval($start->format('W'));
+        $startWeek= $this->getStartWeek();
         $endWeek = intval($end->format('W'));
         //dump($endWeek,$startWeek);
         if ($endWeek === 1) {
@@ -81,6 +88,11 @@ class Month
         return new DateTime("{$this->year}-{$this->month}-01");
     }
 
+    public function getFirstIndex(): int
+    {
+        //dump(date_diff($this->getFirstDay(),$this->getFirstMonday())->format("%R%a"));
+        return date_diff($this->getFirstDay(),$this->getFirstMonday())->format("%R%a");
+    }
     public function getLastSunDay(): DateTime
     {
         $days = 6 + 7 * ($this->getWeeks()-1);

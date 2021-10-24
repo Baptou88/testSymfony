@@ -30,6 +30,9 @@
             <li class="nav-item">
               <a class="nav-link {% if current_menu is defined and current_menu == 'clients' %}active{%endif %} " href="{{path('clients_index')}}">Clients</a>
             </li>
+            <li>
+                <a class="nav-link {% if current_menu is defined and current_menu == 'employes' %}active{%endif %} " href="{{ path('employes_index') }}">Employes</a>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dropdown

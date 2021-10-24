@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Classes\Month;
 use App\Entity\HeureProjet;
 use App\Form\HeureProjetType;
+use App\Repository\EmployesRepository;
 use App\Repository\HeureProjetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class HeureProjetController extends AbstractController
     public function index(HeureProjetRepository $heureProjetRepository): Response
     {
         $month = new Month(4,2021);
-        dump($heureProjetRepository->findbymonth($month));
+        //dump($heureProjetRepository->findbymonth($month));
         return $this->render('heure_projet/index.html.twig', [
             'heure_projets' => $heureProjetRepository->findAll(),
         ]);
@@ -35,9 +36,17 @@ class HeureProjetController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EmployesRepository $repository): Response
     {
         $heureProjet = new HeureProjet();
+        if ($request->get("d") &&  $request->get("m") && $request->get("y"))
+        {
+            $heureProjet->setDate(new \DateTime($request->get("y")."-".$request->get("m")."-".$request->get("d")));
+        }
+        if ($request->get("e")){
+            dump($repository->find($request->get("e")));
+            $heureProjet->setEmploye($repository->find($request->get("e")));
+        }
         $form = $this->createForm(HeureProjetType::class, $heureProjet);
         $form->handleRequest($request);
 

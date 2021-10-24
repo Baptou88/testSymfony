@@ -3,10 +3,11 @@
 {% block title %}Employes{% endblock %}
 
 {% block body %}
-    <h1>Employes</h1>
+    <div class="container">
+        <h1>Employes</h1>
 
-    <table class="table">
-        <tbody>
+        <table class="table table-striped">
+            <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ employe.id }}</td>
@@ -27,12 +28,24 @@
                 <th>ModifiedAt</th>
                 <td>{{ employe.ModifiedAt ? employe.ModifiedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <a href="{{ path('employes_index') }}">back to list</a>
+        <a class="btn btn-primary" href="{{ path('employes_index') }}">back to list</a>
 
-    <a href="{{ path('employes_edit', {'id': employe.id}) }}">edit</a>
+        <a class="btn btn-secondary" href="{{ path('employes_edit', {'id': employe.id}) }}">edit</a>
 
-    {{ include('employes/_delete_form.html.twig') }}
+        {{ include('employes/_delete_form.html.twig') }}
+
+    </div>
+    <div class="container">
+        {{ include('TableauMois/_tableaumois.html.twig') }}
+    </div>
+
+    {{ include('TableauMois/_tableaumois2.html.twig') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('TableauMois') }}
 {% endblock %}

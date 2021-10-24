@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Employes;
 use App\Entity\HeureProjet;
 use App\Entity\Projects;
 use App\Entity\Users;
@@ -19,8 +20,8 @@ class HeureProjetType extends AbstractType
             ->add('duree')
             ->add('isHidden')
             ->add('Employe',EntityType::class ,[
-                "class" => Users::class,
-                "choice_label" => 'username'
+                "class" => Employes::class,
+                "choice_label" => 'name'
             ])
             ->add('project', EntityType::class ,[
                 "class" => Projects::class,

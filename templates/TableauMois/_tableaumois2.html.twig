@@ -1,0 +1,35 @@
+<div class="container border">
+    {{ Month.toString }}
+</div>
+<table class="table">
+    <thead>
+        {% dump(Month.days) %}
+        <tr>
+            <th>W</th>
+            {% for d in 0..(6) %}
+            <th>{{ Month.days[d] }}</th>
+            {% endfor %}
+        </tr>
+
+    </thead>
+    <tbody>
+        {% for w in 0..(Month.weeks-1) %}
+            <tr>
+                <th>{{ Month.startWeek + w }}</th>
+                {% for d in 0..6 %}
+                    <td>
+
+
+                        {% if (Month.firstDay|date_modify((Month.firstIndex  +d + w*7) ~ " day")|date("Y-m-d")) in heureprojects|keys %}
+
+                            {% for record in heureprojects[(Month.firstDay|date_modify((Month.firstIndex  +d + w*7) ~ " day")|date("Y-m-d"))] %}
+
+                                {{ include('TableauMois/_tableaumoisrecord.html.twig') }}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
