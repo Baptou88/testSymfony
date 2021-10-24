@@ -21,11 +21,30 @@ class ProjectSearch
 
     private ArrayCollection $clients;
 
+    private ArrayCollection $projects;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProjects(): ArrayCollection
+    {
+        return $this->projects;
+    }
+
+    /**
+     * @param ArrayCollection $projects
+     */
+    public function setProjects(ArrayCollection $projects): void
+    {
+        $this->projects = $projects;
+    }
+
     #[Pure] public function __construct()
     {
         $this->typeProjet = null;
         $this->options = new ArrayCollection();
         $this->clients = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
     /**
      *

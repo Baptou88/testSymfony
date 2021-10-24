@@ -6,6 +6,7 @@ use App\Entity\Clients;
 use App\Entity\Projects;
 use App\Entity\ProjectSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use phpDocumentor\Reflection\Project;
@@ -49,21 +50,14 @@ class ProjectsRepository extends ServiceEntityRepository
         $query = $query->innerJoin(Clients::class,"c");
 
         if ($search->getTypeProjet()) {
-            dump("la2");
+
             $query = $query
                 ->andWhere('p.TypeProjet = :typeproject')
                 ->setParameter('typeproject' , $search->getTypeProjet());
-//            foreach ($search->getTypeProjet() as $key => $option)
-//            {
-//                dump($option);
-//                $query = $query
-//                    ->andWhere(":TypeProjet$key MEMBER OF p.TypeProjet")
-//                    ->setParameter("TypeProjet",$option);
-//            }
 
         }
         if ($search->getOptions()->count() > 0 ) {
-            dump("la3");
+
                 foreach ($search->getOptions() as $key => $option)
                 {
 
@@ -72,7 +66,26 @@ class ProjectsRepository extends ServiceEntityRepository
                         ->setParameter("option$key",$option);
                 }
         }
-        dump($query->getQuery());
+
+        if ($search->getProjects()->count()>0)
+        {
+
+            foreach ($search->getProjects() as $key => $pr)
+            {
+
+//                $test = $pr->getId();
+//                dump($test);
+//                $query = $query
+//                    ->andWhere("p.id = :proj$key")
+//                    ->setParameter("proj$key",$test);
+            }
+            $query = $query
+                ->andWhere("p.id IN(:projects)")
+                ->setParameter('projects',($search->getProjects()));
+
+        }
+
+        dump($query->getParameters());
         return $query->getQuery();
     }
     // /**
@@ -123,5 +136,16 @@ class ProjectsRepository extends ServiceEntityRepository
             //->getArrayResult()
 
             ;
+    }
+
+    public function search(string $project)
+    {
+
+        return $this->createQueryBuilder('p')
+            ->where('p.code LIKE :project')
+            ->setParameter('project',"%$project%")
+            ->setMaxResults(15)
+            ->getQuery()
+            ->getArrayResult();
     }
 }

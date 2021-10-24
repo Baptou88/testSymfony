@@ -2,32 +2,45 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Clients;
 use App\Entity\Projects;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\TypeProjet;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 
-class ProjectsFixtures extends Fixture
+
+class ProjectsFixtures extends BaseFixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
-    {
-        $faker = Factory::create('fr_FR');
-        for ($i=0; $i < 100; $i++) { 
-            $Project = new Projects;
-            $Project
-                ->setCode($faker->date($format = 'ny', $max = 'now') . "/". $faker->randomLetter() )
-                ->setDateEntree($faker->dateTime($max = 'now', $timezone = null))
-                ->setDateDelai($faker->dateTime($max = 'now', $timezone = null))
-                ->setDescription($faker->words(3,true))
-                ->settype($faker->numberBetween(1,3))
-                ;
-            $manager->persist($Project);
-            
-        }
-        $manager->flush();
-        // $product = new Product();
-        // $manager->persist($product);
+    private $referencesIndex = [];
 
-        
+
+    public function getDependencies(): array
+    {
+        return [
+            ClientsFixture::class,
+            TypeProjectFixture::class
+        ];
+    }
+
+
+    protected function loadData(ObjectManager $manager)
+    {
+        $this->createMany(Projects::class, 100, function(Projects $project) {
+            //$project->setContent(
+            //    $this->faker->boolean ? $this->faker->paragraph : $this->faker->sentences(2, true)
+            //);
+            //$project->setAuthorName($this->faker->name);
+            //$project->setCreatedAt($this->faker->dateTimeBetween('-1 months', '-1 seconds'));
+            //$project->setArticle($this->getRandomReference(Clients::class));
+
+            $project
+                ->setCode($this->faker->date($format = 'ny', $max = 'now') . "/". $this->faker->randomLetter() )
+                ->setDateEntree($this->faker->dateTime($max = 'now', $timezone = null))
+                ->setDateDelai($this->faker->dateTime($max = 'now', $timezone = null))
+                ->setDescription($this->faker->words(3,true))
+                ->setClients($this->getRandomReference(Clients::class))
+                ->setTypeProjet($this->getRandomReference(TypeProjet::class));
+        });
+        $manager->flush();
     }
 }
