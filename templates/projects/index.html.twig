@@ -36,8 +36,8 @@
                     <table class="table table-hover table-striped">
                         <tr>
                             <th>Id</th>
-                            <th>Code</th>
-                            <th>Client</th>
+                            <th>Code {{ knp_pagination_sortable(projects, '', 'p.code') }}</th>
+                            <th>Client {{ knp_pagination_sortable(projects, '', 'c.name') }}</th>
                             <th>Date Entree</th>
                             <th>Delai</th>
                             <th>Type</th>
